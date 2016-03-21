@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><%= title %></title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/css.css" />
+        <script type="text/javascript" src="/javascripts/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="/javascripts/js/nav.js"></script>
+        
+        <script type="text/javascript" src="/javascripts/js/custominput.js"></script>
+        <script type="text/javascript">
+        $(function(){
+            $('input').customInput();
+            $('.toggle').each(function(){
+                $('div:first',this).addClass('first');
+                $('div:last',this).addClass('last');	
+            }); 
+        });
+        </script>
+        <!--选项卡JS开始-->
+        <script type="text/javascript" src="/javascripts/js/script.js"></script>
+        <!--选项卡JS结束-->
+        <!--返回顶部JS-->
+        <script type="text/javascript" src="/javascripts/js/popwin.js"></script>
+        <!--返回顶部JS-->
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/ycj_controller.js"></script>
+    </head>
+    <body ng-app='ycj_app'>
+        <!-- 页头 -->
+        <% include public/header %>
+        <script> $(".nav li:contains('实时快讯')").addClass("cur");</script>
+        
+        <!-- 页面内容 -->
+        <div class="middle">
+            <!-- 上部内容(声音，日期)-->
+            <div class="middletop">
+                <!-- 声音开关-->
+                <div class="radio">
+                    <span style="padding-right:2px;">声音提示：</span>
+                    <span>
+                        <input type="checkbox" name="genre" id="action" value="action" checked="checked"/>
+                        <label for="action"></label>
+                    </span>
+                </div>
+                <!-- 显示日期-->
+                <div class="time" id=timer></div>
+            </div>
+            <!-- 左侧内容(财经简讯)-->
+            <div class="middleleft" ng-controller='newsCtrl'> 
+                 <!--实时推送快讯消息数据-->
+                <% include public/breaking_news %>
+                <!--静态数据开始，这里存放自动生成静态html数据，供首次访问使用-->
+                <div class="new static-data" hidden>
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <div hidden class="news-id">20160318162639027432</div>
+                            <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
+                            <td align="left" valign="middle" width="55">13:04</td>
+                            <td width="608" height="30" align="left" valign="middle">安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单正式确定。</td>
+                        </tr>
+                    </table>
+                </div>
+                <!--静态数据结束-->
+                <!--加载更多快讯数据-->
+                <% include public/load_more_news %>
+                <div class="clear_both"></div>
+            </div>
+            <!-- 右侧内容(行情+声明+联系我们)-->
+            <div class="middleright">
+                <!-- 行情tab -->
+                <div class="tab1" id="tab1"><% include public/hq %></div>
+                <!-- 58云财经声明 -->
+                <div class="sbox"><% include public/declaration %></div>
+                <!-- 联系我们 -->
+                <div class="sbox"><% include public/contact %></div>
+                <div class="clear_both"></div>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+        <!-- 页脚 -->
+        <% include public/footer %>
+        <!-- 返回顶部 -->
+        <% include public/return_top %>
+    </body>
+    <SCRIPT>
+        setInterval("timer.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+    </SCRIPT>
+</html>

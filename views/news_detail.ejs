@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><%=title%></title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/css.css" />
+        <!--顶部JS-->
+        <script type="text/javascript" src="/javascripts/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="/javascripts/js/nav.js"></script>
+        <!--顶部JS-->
+        <!--选项卡JS开始-->
+        <script type="text/javascript" src="/javascripts/js/script.js"></script>	
+        <!--选项卡JS结束-->
+        <!--返回顶部JS-->
+        <script type="text/javascript" src="/javascripts/js/popwin.js"></script>
+        <!--返回顶部JS-->
+        <!--新闻分类JS-->
+        <script type="text/javascript" src="/javascripts/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="/javascripts/js/jquery.movebg.js"></script>
+        <!--新闻分类JS-->
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/ycj_controller.js"></script>
+    </head>
+    <body ng-app="ycj_app">
+        <!--top开始-->
+        <% include public/header %>
+        <script>$(".nav li:contains('新闻资讯')").addClass("cur");</script>
+        <!--top结束-->
+        <!--分类导航开始-->
+        <% include public/main_menu %>
+        <!--分类导航结束-->
+        <!--middle开始-->
+        <div class="middle">
+            <!--left开始-->
+            <div class="middleleft">
+                <div class="title6">北京房价全面开涨 一线楼市已开启疯涨模式</div>
+                <div class="article1"><span class="name">文/德芙</span><span class="time2">2016-03-01 00:17</span></div>
+                <div class="content1">
+                    <span><img src="/images/d8550bf627f085ac99e1b6445fdb0b2a.jpg" width="700" height="526" /></span>
+                    <span>对于今年的货币政策，市场“偏宽松”的解读居多，甚至有“中国货币政策开始转向”的疑惑。
+
+                        一方面，央行行长周小川在上海G20会议新闻发布会上首次对以往一贯的“稳健货币政策”松口，称央行货币政策目前处于“稳健略偏宽松”的状态。
+
+                        另一方面，央行在2月最后一天突然宣布降准，再叠加1月的信贷激增，以及未来可能提高到4%的赤字水平，分析师预计今年或出台更多宽松政策。
+
+                        但新华社发表评论文章认为，中国的货币政策是在“稳健”的基调下略有放松。
+
+                        中国的货币政策继２００８年“从紧”和２００９年、２０１０年“适度宽松”后，进入“稳健”状态已是第六个年头。</span><span>
+                        中国央行行长周小川近日在央行上海总部举行的记者会上表示，人民银行的货币政策处于稳健略偏宽松的状态，还要不断观察适时动态调整。
+
+                        “稳健略偏宽松”，这是央行首度提出的对货币政策状态的全新看法。
+
+                        关于货币政策的描述有五个大范畴：宽松、适度宽松、稳健、适度从紧和从紧。这五个范畴覆盖面都比较大。在每一个范畴里，向左向右都可以有灵活性调整，但是从一个提法换到另一个提法，需要迈过很高的门槛。
+
+                        对货币政策的动态调整，亦是去年底中央经济工作会议的要求。稳健的货币政策只有灵活适度，才能够为结构性改革营造适宜的货币金融环境，降低融资成本，保持流动性合理充裕和社会融资总量适度增长。
+
+                        人民日报也援引专家的观点称，货币政策稳健的基调没有变化，只是灵活度在增加，这是为了支持经济发展，并不是刺激政策，对此需要清醒认识：
+
+                        “虽然央行最近降准，但并不表明中国的货币政策特别宽松了，只是在稳健中又往宽走了一步。”暨南大学国际金融与商务研究所所长孙华妤在接受本报记者采访时说。
+
+                        在孙华妤看来，刚刚实行的降准举措并非真正意义上的宽松，因为前期资本流出较多，降准“填坑”的作用更明显。孙华妤说，“去年12月、今年1月，央行外汇占款连续每月下降1000多亿美元，此次降准释放出的流动性刚好能填1个月资本流出的空缺，所以说是‘填坑’作用大于宽松。”</span><span>
+
+                        据此推测，此次降准仍难解实体经济饥渴，“估计今年还会有两到三次降准”。孙华妤补充说，除实体经济的需求外，供给侧改革也要求财政政策偏宽，财政赤字加大，而只有货币宽后才能支撑财政宽，否则财政政策难以起效。
+
+                        的确，目前种种放宽举措并不代表中国货币政策转向，央行日前将中国的货币政策形容为“稳健略偏宽松的状态”。中国金融四十人论坛高级研究员张斌认为，央行在货币政策取向方面，很关键也很明确的信息是：货币政策处于稳健略偏宽松的状态，今后如果有需要，还有进一步的空间。
+
+                        新华社指出，这仍处界限之内的调整，绝非中国大规模强刺激经济的先兆。理由有两方面：
+
+                        1，对于可能的经济下行风险，中国的“工具箱”仍有一定的货币政策空间。坚持“区间调控”与“定向调控”的调控方式，已成为中国政府在经济转型升级期常态化使用的宏观管理创新方式，是有别于传统宏观调控思路的“巧调控”。
+
+                        2，中国经济发展长期向好的基本面没有变，经济增长率仍运行在合理区间，
+                    </span>
+                    <span style="font-style:italic;">文章来源：<font style="color:#B5B7B9;">新浪财经</font></span>
+                    <span>（更多精彩财经资讯，<a href="#">点击这里下载58云财经App</a>)</span>
+                </div>
+                <!--content 结束-->
+                <div class="zan">
+                    <div class="heart " id="like1" rel="like">
+                        <div class="heart1"></div>
+                    </div>
+                    <div class="likeCount" id="likeCount1">1485</div>
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $('body').on("click",'.heart',function(){
+                                var A=$(this).attr("id");
+                                var B=A.split("like");
+                                var messageID=B[1];
+                                var C=parseInt($("#likeCount"+messageID).html());
+                                $(this).css("background-position","")
+                                var D=$(this).attr("rel");
+                            
+                                if(D === 'like') {      
+                                    $("#likeCount"+messageID).html(C+1);
+                                    $(this).addClass("heartAnimation").attr("rel","unlike");
+                                }
+                                else{
+                                    $("#likeCount"+messageID).html(C-1);
+                                    $(this).removeClass("heartAnimation").attr("rel","like");
+                                    $(this).css("background-position","left");
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="share"><% include public/share %></div>
+                <div class="title3">相关文章</div>
+                <div class="related">
+                    <ul>
+                        <li class="picture2"><a href="#"><img src="/images/56-6s.jpg" width="165" height="115" /></a></li>
+                        <li class="title7"><a href="#">在隔夜欧美股市大涨带动下，亚洲股市今日早盘普涨</a></li>
+                    </ul>
+                    <ul>
+                        <li class="picture2"><a href="#"><img src="/images/56-6s.jpg" width="165" height="115" /></a></li>
+                        <li class="title7"><a href="#">在隔夜欧美股市大涨带动下，亚洲股市今日早盘普涨</a></li>
+                    </ul>
+                    <ul>
+                        <li class="picture2"><a href="#"><img src="/images/56-6s.jpg" width="165" height="115" /></a></li>
+                        <li class="title7"><a href="#">在隔夜欧美股市大涨带动下，亚洲股市今日早盘普涨</a></li>
+                    </ul>
+                    <ul>
+                        <li class="picture2"><a href="#"><img src="/images/56-6s.jpg" width="165" height="115" /></a></li>
+                        <li class="title7"><a href="#">在隔夜欧美股市大涨带动下，亚洲股市今日早盘普涨</a></li>
+                    </ul>
+                </div>
+                <div class="clear_both"></div>
+            </div>
+            <!--left结束-->
+            <!--right开始-->
+            <div class="middleright">
+                <!-- tab标签代码开始 -->
+                <div class="sbox">
+                    <div class="title4">快讯 / 行情</div>
+                    <% include public/mini_breaking_news %>
+                </div>
+                <!--实时行情-->
+                <div class="tab1" id="tab1"><% include public/hq %></div>
+                <!-- tab标签代码结束 -->
+                <!--热门文章开始-->
+                <div class="sbox">
+                    <div class="title4">推荐文章</div>
+                    <div class="statement1">
+                        <div class="new2">
+                            <span class="picture1"><a href="#"><img src="/images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="#">高盛劝退支持特朗普竞选的员工 总统大选对华尔街</a></span>
+                        </div>
+                        <div class="new2">
+                            <span class="picture1"><a href="#"><img src="/images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="#">高盛劝退支持特朗普竞选的员工 总统大选对华尔街</a></span>
+                        </div>
+                        <div class="new2">
+                            <span class="picture1"><a href="#"><img src="/images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="#">高盛劝退支持特朗普竞选的员工 总统大选对华尔街</a></span>
+                        </div>
+                        <div class="new2">
+                            <span class="picture1"><a href="#"><img src="/images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="#">高盛劝退支持特朗普竞选的员工 退支持特朗总统大选对华尔街</a></span>
+                        </div>
+                        <div class="new2">
+                            <span class="picture1"><a href="#"><img src="/images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="#">高盛劝退支持特朗普竞选的员工 总统大选对华尔街</a></span>
+                        </div>
+                    </div>
+                </div>
+                <!--热门文章结束-->
+                <div class="clear_both"></div>
+            </div>
+            <!--right结束-->
+        <div class="clear_both"></div>
+        </div>
+        <!--middle结束-->
+        <!-- 页脚 -->
+        <% include public/footer %>
+        <!-- 返回顶部 -->
+        <% include public/return_top %>
+    </body>
+</html>

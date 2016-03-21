@@ -1,0 +1,28 @@
+<div class="cjsj">{{transCHNDate(selDate)}} 财经大事一览</div>
+<div class="cjlb">
+    <table width="100%" border="0" cellspacing="1" cellpadding="0" bgcolor="#E6E6E6">
+        <tr style="font-size:13px;"> 
+            <td width="7%" height="30" align="center" valign="middle" bgcolor="#E6E6E6">时间</td>
+            <td width="8%" align="center" valign="middle" bgcolor="#E6E6E6">国家/地区</td>
+            <td width="10%" align="center" valign="middle" bgcolor="#E6E6E6">地点</td>
+            <td width="10%" align="center" valign="middle" bgcolor="#E6E6E6">重要性</td>
+            <td align="center" valign="middle" bgcolor="#E6E6E6"> 事件</td>
+        </tr>
+        <tr align="center" valign="middle">
+            <td height="40" align="center" bgcolor="#FFFFFF">16:55</td>
+            <td align="center" bgcolor="#FFFFFF">美国</td>
+            <td height="40" bgcolor="#FFFFFF">布鲁塞尔</td>
+            <td align="center" bgcolor="#FFFFFF"><img src="images/33.jpg" width="79" height="19" /></td>
+            <td align="left" bgcolor="#FFFFFF"><span style="margin:10px 0 10px 5px;"><img src="images/习近平.png" width="40" height="40" /></span><span class="shijian">国家主席习近平对津巴布韦进行国事访问，至12月2日。国家主席习近平对津巴布韦进行国事访问，至12月2日。国家主席习近平对津巴布韦进行国事访问，至12月2日。</span></td>
+        </tr>
+        <tr align="center" valign="middle" ng-repeat="calendar_event in calendar_events">
+            <td height="40" align="center" bgcolor="#FFFFFF">{{calendar_event.time}}</td>
+            <td align="center" bgcolor="#FFFFFF">{{calendar_event.nation}}</td>
+            <td height="40" bgcolor="#FFFFFF">{{calendar_event.location}}</td>
+            <td align="center" bgcolor="#FFFFFF"><img src="images/{{calendar_event.import_index}}{{calendar_event.import_index}}.jpg" width="79" height="19" /></td>
+            <td align="left" bgcolor="#FFFFFF" style="color:#FF4D4D;"><span style="margin:10px 0 10px 5px;">
+                </span><b><span class="shijian">{{calendar_event.content}}</span></b>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><%= title %></title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/css.css" />
+        <!--日历JS-->
+        <script type="text/javascript" src="javascripts/js/laydate.js"></script>
+        <!--日历JS-->
+        <!--顶部JS-->
+        <script type="text/javascript" src="javascripts/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="javascripts/js/nav.js"></script>
+        <!--顶部JS-->
+        <!--返回顶部JS-->
+        <script type="text/javascript" src="javascripts/js/popwin.js"></script>
+        <!--返回顶部JS-->
+        <!--实时推送socketio库-->
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
+        <!--应用逻辑控制-->
+        <script type="text/javascript" src="/javascripts/angular/ycj_controller.js"></script>
+    </head>
+    <body ng-app="ycj_app" >
+        <!--top开始-->
+        <% include public/header %>
+        <script>
+            $(".nav li:contains('财经日历')").addClass("cur");
+        </script>
+        <!--top结束-->
+        <!--middle开始-->
+        <div class="middle"  ng-controller="calendarCtrl">
+            <!--查询开始-->
+            <% include public/calendar_search %>
+            <!--查询结束-->
+            <!--经济数据开始-->
+            <% include public/calendar_data %>
+            <!--经济数据结束-->
+            <!--财经大事开始-->
+            <% include public/calendar_event %>
+            <!--财经大事结束--> 
+            <!--假期预告开始-->
+            <% include public/holiday %>
+            <!--假期预告结束--> 
+            <!--国债一览开始-->
+            <% include public/national_debt %>
+            <!--国债一览结束--> 
+            <div class="clear_both"></div>
+        </div>
+        <!--middle结束-->
+        <!-- 页脚 -->
+        <% include public/footer %>
+        <!-- 返回顶部 -->
+        <% include public/return_top %>
+    </body>
+</html>

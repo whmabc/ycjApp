@@ -1,0 +1,135 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><%= title %></title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/css.css" />
+        <!--顶部JS-->
+        <script type="text/javascript" src="/javascripts/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="/javascripts/js/nav.js"></script>
+        <!--顶部JS-->
+        <!--选项卡JS开始-->
+        <script type="text/javascript" src="/javascripts/js/script.js"></script>	
+        <!--选项卡JS结束-->
+        <!--返回顶部JS-->
+        <script type="text/javascript" src="/javascripts/js/popwin.js"></script>
+        <!--返回顶部JS-->
+        <!--新闻分类JS-->
+        <script type="text/javascript" src="/javascripts/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="/javascripts/js/jquery.movebg.js"></script>
+        <!--新闻分类JS-->
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/ycj_controller.js"></script>
+    </head>
+    <body ng-app="ycj_app">
+        <!-- 页头 -->
+        <% include public/header %>
+        <script>$(".nav li:contains('新闻资讯')").addClass("cur");</script>
+        <!--分类导航开始-->
+        <% include public/main_menu %>
+        <!--分类导航结束-->
+        <!--middle开始-->
+        <div class="middle">
+            <!--left开始-->
+            <div class="middleleft">
+                <div class="title3">最新文章</div>
+                <div class="new1">
+                    <ul>
+                        <li class="picture"><a href="news/test"><img src="images/56-6.jpg" width="190" height="130" /></a></li>
+                        <li class="title1"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街的影响到底有多大？</a></li>
+                        <li class="article"><span class="name">文/德芙</span><span class="classification"><a href="news/test">原油</a></span><span class="time1">2016-03-01 00:17</span></li>
+                        <li class="content">据路透社报道，两位消息人士称，中国政府计划在未来两三年内从“僵尸企业”中裁减500-600万名员工。以限制工业产能过剩和环境污染。一位知情人士表示，产能过剩行业...</li>
+                    </ul>
+                    <ul>
+                        <li class="picture"><a href="news/test"><img src="images/56-6.jpg" width="190" height="130" /></a></li>
+                        <li class="title1"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街的影响到底有多大？</a></li>
+                        <li class="article"><span class="name">文/德芙</span><span class="classification"><a href="news/test">原油</a></span><span class="time1">2016-03-01 00:17</span></li>
+                        <li class="content">据路透社报道，两位消息人士称，中国政府计划在未来两三年内从“僵尸企业”中裁减500-600万名员工。以限制工业产能过剩和环境污染。一位知情人士表示，产能过剩行业...</li>
+                    </ul>
+                    <ul>
+                        <li class="picture"><a href="news/test"><img src="images/56-6.jpg" width="190" height="130" /></a></li>
+                        <li class="title1"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街的影响到底有多大？</a></li>
+                        <li class="article"><span class="name">文/德芙</span><span class="classification"><a href="news/test">原油</a></span><span class="time1">2016-03-01 00:17</span></li>
+                        <li class="content">据路透社报道，两位消息人士称，中国政府计划在未来两三年内从“僵尸企业”中裁减500-600万名员工。以限制工业产能过剩和环境污染。一位知情人士表示，产能过剩行业...</li>
+                    </ul>
+                    <ul>
+                        <li class="picture"><a href="news/test"><img src="images/56-6.jpg" width="190" height="130" /></a></li>
+                        <li class="title1"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街的影响到底有多大？</a></li>
+                        <li class="article"><span class="name">文/德芙</span><span class="classification"><a href="news/test">原油</a></span><span class="time1">2016-03-01 00:17</span></li>
+                        <li class="content">据路透社报道，两位消息人士称，中国政府计划在未来两三年内从“僵尸企业”中裁减500-600万名员工。以限制工业产能过剩和环境污染。一位知情人士表示，产能过剩行业...</li>
+                    </ul>
+                    <ul>
+                        <li class="picture"><a href="news/test"><img src="images/56-6.jpg" width="190" height="130" /></a></li>
+                        <li class="title1"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街的影响到底有多大？</a></li>
+                        <li class="article"><span class="name">文/德芙</span><span class="classification"><a href="news/test">原油</a></span><span class="time1">2016-03-01 00:17</span></li>
+                        <li class="content">据路透社报道，两位消息人士称，中国政府计划在未来两三年内从“僵尸企业”中裁减500-600万名员工。以限制工业产能过剩和环境污染。一位知情人士表示，产能过剩行业...</li>
+                    </ul>
+                    <ul>
+                        <li class="picture"><a href="news/test"><img src="images/56-6.jpg" width="190" height="130" /></a></li>
+                        <li class="title1"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街的影响到底有多大？</a></li>
+                        <li class="article"><span class="name">文/德芙</span><span class="classification"><a href="news/test">原油</a></span><span class="time1">2016-03-01 00:17</span></li>
+                        <li class="content">据路透社报道，两位消息人士称，中国政府计划在未来两三年内从“僵尸企业”中裁减500-600万名员工。以限制工业产能过剩和环境污染。一位知情人士表示，产能过剩行业...</li>
+                    </ul>
+                    <ul>
+                        <li class="picture"><a href="news/test"><img src="images/56-6.jpg" width="190" height="130" /></a></li>
+                        <li class="title1"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街的影响到底有多大？</a></li>
+                        <li class="article"><span class="name">文/德芙</span><span class="classification"><a href="news/test">原油</a></span><span class="time1">2016-03-01 00:17</span></li>
+                        <li class="content">据路透社报道，两位消息人士称，中国政府计划在未来两三年内从“僵尸企业”中裁减500-600万名员工。以限制工业产能过剩和环境污染。一位知情人士表示，产能过剩行业...</li>
+                    </ul>
+                </div>
+                <div class="more"><a href="news/test">加载更多</a></div>
+                <div class="clear_both"></div>
+            </div>
+            <!--left结束-->
+            <!--right开始-->
+            <div class="middleright">
+                <!-- tab标签代码开始 -->
+                <div class="sbox">
+                    <div class="title4">快讯 / 行情</div>
+                    <% include public/mini_breaking_news %>
+                </div>
+                <!--行情tab-->
+                <div class="tab1" id="tab1"><% include public/hq %></div>
+                <!-- tab标签代码结束 -->
+                <!--热门文章开始-->
+                <div class="sbox">
+                    <div class="title4">推荐文章</div>
+                    <div class="statement1">
+                        <div class="new2">
+                            <span class="picture1"><a href="news/test"><img src="images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街</a></span>
+                        </div>
+                        <div class="new2">
+                            <span class="picture1"><a href="news/test"><img src="images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街</a></span>
+                        </div>
+                        <div class="new2">
+                            <span class="picture1"><a href="news/test"><img src="images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街</a></span>
+                        </div>
+                        <div class="new2">
+                            <span class="picture1"><a href="news/test"><img src="images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="news/test">高盛劝退支持特朗普竞选的员工 退支持特朗总统大选对华尔街</a></span>
+                        </div>
+                        <div class="new2">
+                            <span class="picture1"><a href="news/test"><img src="images/gg-6.jpg" width="90" height="60" /></a></span>
+                            <span class="title5"><a href="news/test">高盛劝退支持特朗普竞选的员工 总统大选对华尔街</a></span>
+                        </div>
+                    
+                    </div>
+                </div>
+                <!--热门文章结束-->
+                <div class="clear_both"></div>
+            </div>
+            <!--right结束-->
+            <div class="clear_both"></div>
+        </div>
+        <!--middle结束-->
+        <!-- 页脚 -->
+        <% include public/footer %>
+        <!-- 返回顶部 -->
+        <% include public/return_top %>
+    </body>
+</html>

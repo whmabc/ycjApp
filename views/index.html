@@ -1,0 +1,351 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>58云财经</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/css.css" />
+        <!--<script type="text/javascript" src="/javascripts/js/jquery-1.4.2.min.js"></script>-->
+        <script type="text/javascript" src="/javascripts/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="/javascripts/js/nav.js"></script>
+        <script type="text/javascript" src="/javascripts/js/custominput.js"></script>
+        <script type="text/javascript">
+        $(function(){
+            $('input').customInput();
+            $('.toggle').each(function(){
+                $('div:first',this).addClass('first');
+                $('div:last',this).addClass('last');	
+            }); 
+        });
+        </script>
+        <!--选项卡JS开始-->
+        <script type="text/javascript" src="/javascripts/js/script.js"></script>
+        <!--选项卡JS结束-->
+        <!--返回顶部JS-->
+        <script type="text/javascript" src="/javascripts/js/popwin.js"></script>
+        <!--返回顶部JS-->
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/ycj_controller.js"></script>
+    </head>
+    <body ng-app='ycj_app'>
+        <!-- 页头 -->
+        <div class="top">
+    <div class="topbox">
+        <div class="logo"><a href="#"><img src="/images/cj_logo.png" width="150" height="45" /></a></div>
+        <div class="ad"></div>
+        <div class="navbox">  
+            <!--导航开始-->
+            <div class="nav">
+                <ul>
+                    <li class="cur"><a href="/">实时快</a></li>
+                    <li ><a href="/news">新闻资讯</a></li>
+                    <li ><a href="/calendar">财经日历</a></li>
+                    <li ><a href="/mobile">APP下载</a></li>
+                </ul>
+                <div class="nav-line"></div>
+            </div>   
+            <!--导航结束-->
+        </div>
+    </div>
+</div>
+        <!-- 页面内容 -->
+        <div class="middle">
+            <!-- 上部内容(声音，日期)-->
+            <div class="middletop">
+                <!-- 声音开关-->
+                <div class="radio">
+                    <span style="padding-right:2px;">声音提示：</span>
+                    <span>
+                        <input type="checkbox" name="genre" id="action" value="action" checked="checked"/>
+                        <label for="action"></label>
+                    </span>
+                </div>
+                <!-- 显示日期-->
+                <div class="time" id=timer></div>
+            </div>
+            <!-- 左侧内容(财经简讯)-->
+            <div class="middleleft" ng-controller='newsCtrl'> 
+                <div class="new"  data-ng-repeat="data in datas">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0" ng-class="{'txtred': data.import}">
+                        <tr>
+                            <!--logo-->
+                            <td align="left" valign="middle" width="37" >
+                                <a href="#">
+                                    <img src="images/{{getNewsLogo(data.type, data.import)}}.png" width="20" height="20" title="{{getNewsLogoTips(data.type, data.import)}}" alt="{{getNewsLogoTips(data.type, data.import)}}" border="0" />
+                                </a>
+                            </td>
+                            <!--time 财经新闻-->
+                            <td align="left" valign="middle" width="55" ng-if="data.type==0" ng-bind="data.news_time|dateTransNoSec:data.news_time"></td>
+                            <!--time 财经数据-->
+                            <td align="left" valign="middle" width="60" ng-if="data.type==1" ng-bind="data.news_time|dateTrans:data.news_time"></td>
+                            <!--财经新闻content-->
+                            <td width="608" height="30" align="left" valign="middle" ng-if="data.type==0" ng-bind-html="data.content|to_trusted"></td>
+                            <!--财经数据table-->
+                            <td width="596" align="left" valign="middle" ng-if="data.type==1">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <!--国旗-->
+                                        <td width="54" height="60" rowspan="2" align="center" valign="middle">
+                                            <img src="images/nation/{{data.nation}}.png" width="40" height="40" title="国旗" alt="国旗" />
+                                        </td>
+                                        <!--公布时间-->
+                                        <td width="74" rowspan="2" align="center" valign="middle" style="font-size:16px;" ng-bind="data.gb_time"></td>
+                                        <!--指标内容-->
+                                        <td width="204" height="28" align="left" valign="middle" style="font-size:13px;" ng-bind="data.content"></td>
+                                        <!--重要级别-->
+                                        <td width="56" rowspan="2" align="center" valign="middle"><img src="images/{{data.import_index}}.png" width="20" height="34" title="data.import_index" /></td>
+                                        <!--实际指标-->
+                                        <td width="116" rowspan="2" align="left" valign="middle" style="font-size:16px;" >实际：<div ng-bind="data.actual_val"></div></td>
+                                        <!--利空利多-->
+                                        <td width="92" rowspan="2" align="right" valign="middle"><img src="images/{{data.li_duo}}.png" width="82" height="24" title="data.li_duo" alt="data.li_duo" /></td>
+                                    </tr>
+                                    <tr>
+                                        <!--预期值和前值-->
+                                        <td width="204" align="left" valign="middle" style="font-size:13px;">
+                                            前值：<div ng-bind="data.pre_val"></div> 
+                                            预期：<div  ng-bind="data.expected_val"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="new static-data">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <div hidden class="news-id">20160318162639027438</div>
+                                <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
+                                <td align="left" valign="middle" width="55">13:04</td>
+                                <td width="608" height="30" align="left" valign="middle">创业板涨逾2%，虚拟现实板块大涨5%，爱施德、水晶光电、长江通信涨停。</td>
+                            </tr>
+                    </table>
+                    </div>
+                <div class="new static-data">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <div hidden class="news-id">20160318162639027437</div>
+                        <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
+                        <td align="left" valign="middle" width="55">13:04</td>
+                        <td width="608" height="30" align="left" valign="middle">中国央行今日100亿元7天期逆回购中标利率2.25%，与上次持平</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="new static-data">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <div hidden class="news-id">20160318162639027436</div>
+                        <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
+                        <td align="left" valign="middle" width="55">13:04</td>
+                        <td width="608" height="30" align="left" valign="middle">【10月我国移动互联网接入流量达4.2亿G 创历史新高】工信部：10月份，我国三家基础电信企业运行平稳，受&ldquo;流量不清零&rdquo;政策影响，收入增速出现回落，移动互联网接入流量达4.2亿G，创历史新高。</td>
+                        </tr>
+                    </table>
+                    </div>
+                <div class="new static-data">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0" style="color:#FF4D4D;">
+                        <tr>
+                            <div hidden class="news-id">20160318162639027435</div>
+                        <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
+                        <td align="left" valign="middle" width="55">13:04</td>
+                        <td width="608" height="30" align="left" valign="middle"><p>在岸人民币对美元开盘后迅速走高，涨0.11%至6.3786。</p>
+                        <p>离岸人民币对美元一度涨至6.4042。</p></td>
+                        </tr>
+                    </table>
+                    </div>
+                <div class="new static-data">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <div hidden class="news-id">20160318162639027434</div>
+                        <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
+                        <td align="left" valign="middle" width="55">13:04</td>
+                        <td width="608" height="30" align="left" valign="middle">香港恒生指数开盘上涨1.1%，报22423.88点。</td>
+                        </tr>
+                    </table>
+                    </div>
+                    <div class="new static-data">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <div hidden class="news-id">20160318162639027433</div>
+                        <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
+                        <td align="left" valign="middle" width="55">13:04</td>
+                        <td width="608" height="30" align="left" valign="middle">【报道】安倍内阁改组18人大名单正式确定。</td>
+                        </tr>
+                    </table>
+                    </div>
+                    <div class="new static-data">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <div hidden class="news-id">20160318162639027432</div>
+                                <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
+                                <td align="left" valign="middle" width="55">13:04</td>
+                                <td width="608" height="30" align="left" valign="middle">安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单正式确定。</td>
+                            </tr>
+                    </table>
+                    </div>
+                <div class="new"  data-ng-repeat="data in moreDatas">
+                    <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0" ng-class="{'txtred': data.import}">
+                        <tr>
+                            <!--logo-->
+                            <td align="left" valign="middle" width="37" >
+                                <a href="#">
+                                    <img src="images/{{getNewsLogo(data.type, data.import)}}.png" width="20" height="20" title="{{getNewsLogoTips(data.type, data.import)}}" alt="{{getNewsLogoTips(data.type, data.import)}}" border="0" />
+                                </a>
+                            </td>
+                            <!--time 财经新闻-->
+                            <td align="left" valign="middle" width="55" ng-if="data.type==0">{{data.news_time|dateTransNoSec:data.news_time}}</td>
+                            <!--time 财经数据-->
+                            <td align="left" valign="middle" width="60" ng-if="data.type==1">{{data.news_time|dateTrans:data.news_time}}</td>
+                            <!--财经新闻content-->
+                            <td width="608" height="30" align="left" valign="middle" ng-if="data.type==0" ng-bind-html="data.content|to_trusted"></td>
+                            <!--财经数据table-->
+                            <td width="596" align="left" valign="middle" ng-if="data.type==1">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <!--国旗-->
+                                        <td width="54" height="60" rowspan="2" align="center" valign="middle">
+                                            <img src="images/nation/{{data.nation}}.png" width="40" height="40" title="国旗" alt="国旗" />
+                                        </td>
+                                        <!--公布时间-->
+                                        <td width="74" rowspan="2" align="center" valign="middle" style="font-size:16px;">{{data.gb_time}}</td>
+                                        <!--指标内容-->
+                                        <td width="204" height="28" align="left" valign="middle" style="font-size:13px;">{{data.content}}</td>
+                                        <!--重要级别-->
+                                        <td width="56" rowspan="2" align="center" valign="middle"><img src="images/{{data.import_index}}.png" width="20" height="34" title="data.import_index" /></td>
+                                        <!--实际指标-->
+                                        <td width="116" rowspan="2" align="left" valign="middle" style="font-size:16px;">实际：{{data.actual_val}}</td>
+                                        <!--利空利多-->
+                                        <td width="92" rowspan="2" align="right" valign="middle"><img src="images/{{data.li_duo}}.png" width="82" height="24" title="data.li_duo" alt="data.li_duo" /></td>
+                                    </tr>
+                                    <tr>
+                                        <!--预期值和前值-->
+                                        <td width="204" align="left" valign="middle" style="font-size:13px;">前值：{{data.pre_val}} 预期：{{data.expected_val}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                   
+    
+    <div class="more" ng-show="getDataCounts()<400"><a href="" ng-click="getMore()">加载更多</a></div>
+    <div class="more" ng-show="getDataCounts()>=400"><a href="">无更多数据</a></div>
+    
+    <div class="clear_both"></div>
+</div>
+            <!-- 右侧内容(行情+声明+联系我们)-->
+            <div class="middleright">
+                <!-- 行情tab -->
+                <div class="tab1" id="tab1"><div class="menu">
+    <ul>
+        <li id="one1" onclick="setTab('one',1)">股指</li>
+        <li id="one2" onclick="setTab('one',2)">贵金属</li>
+        <li id="one3" onclick="setTab('one',3)">商品</li>
+        <li id="one4" onclick="setTab('one',4)">外汇</li>
+    </ul>
+</div>
+<div class="menudiv" ng-controller='hqCtrl'>
+    <!--证券-->
+    <div id="con_one_1">
+        <ul class="stock" data-ng-repeat="zqData in data.zqDatas">
+            <!--名称-->
+            <span class="txtleft">{{zqData.name}}</span>
+            <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色-->
+            <span class="txtcenter" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}" flash>
+                {{zqData.dq_price}}<div ng-show="false">{{zqData.change}}</div>
+            </span>
+            <!--涨跌幅-->
+            <span class="txtright" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}">{{zqData.zdf}}</span>
+        </ul>
+    </div>
+    <!--贵金属-->
+    <div id="con_one_2" style="display:none;">
+        <ul class="stock" data-ng-repeat="gjsData in data.gjsDatas">
+            <!--名称-->
+            <span class="txtleft" >{{gjsData.name}}</span>
+            <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色-->            
+            <span class="txtcenter" ng-class="{'txtred': cton(gjsData.zdf)>0, 'txtgreen': cton(gjsData.zdf)<0}" flash>
+                {{gjsData.dq_price}}<div ng-show="false">{{gjsData.change}}</div>
+            </span>
+            <!--涨跌幅-->
+            <span class="txtright" ng-class="{'txtred': cton(gjsData.zdf)>0, 'txtgreen': cton(gjsData.zdf)<0}">{{gjsData.zdf}}</span>
+        </ul>                
+    </div>
+    <!--期货、商品-->
+    <div id="con_one_3" style="display:none;">
+        <ul class="stock" data-ng-repeat="spData in data.spDatas">
+            <!--名称-->
+            <span class="txtleft">{{spData.name}}</span>
+            <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色--> 
+            <span class="txtcenter" ng-class="{'txtred': cton(spData.zdf)>0, 'txtgreen': cton(spData.zdf)<0}" flash>
+                {{spData.dq_price}}<div ng-show="false">{{spData.change}}</div>
+            </span>
+            <!--涨跌幅-->
+            <span class="txtright" ng-class="{'txtred': cton(spData.zdf)>0, 'txtgreen': cton(spData.zdf)<0}">{{spData.zdf}}</span>
+        </ul>
+    </div>
+    <!--外汇-->
+    <div id="con_one_4" style="display:none;">
+        <ul class="stock" data-ng-repeat="whData in data.whDatas">
+            <!--名称-->
+            <span class="txtleft">{{whData.name}}</span>
+            <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色--> 
+            <span class="txtcenter" ng-class="{'txtred': cton(whData.zdf)>0, 'txtgreen': cton(whData.zdf)<0}" flash>
+                {{whData.dq_price}}<div ng-show="false">{{whData.change}}</div>
+            </span>
+            <!--涨跌幅-->
+            <span class="txtright" ng-class="{'txtred': cton(whData.zdf)>0, 'txtgreen': cton(whData.zdf)<0}">{{whData.zdf}}</span>
+        </ul>
+    </div>
+</div></div>
+                <!-- 58云财经声明 -->
+                <div class="sbox"><div class="title">58云财经声明</div>
+<div class="statement">
+    <span style="color:#1A94E2;">•</span> 58云财经的数据解读是计算机自动获取并通过程序运算进行的理论性解读，不代表实际影响。<br />
+    <span style="color:#1A94E2;">•</span> 我们会尽力保证数据发布速度与准确性，由于不可控因素导致数据未能及时发布敬请谅解。<br />
+    <span style="color:#1A94E2;">•</span> 有些数据延迟或提前发布，这是由于数据公布机构有时未必会准时发布所导致。<br />
+    <span style="color:#1A94E2;">•</span> 我们会甄选精品文章供用户阅读参考，若某些文章侵犯了您的权益，请与我们联系删除。<br />
+</div></div>
+                <!-- 联系我们 -->
+                <div class="sbox"><div class="title">联系我们</div>
+<div class="statement">
+    <div class="contact">
+        <span class="qqimg"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=123456&amp;site=qq&amp;menu=yes"><img src="images/qq.png" width="35" height="26" /></a></span>
+        <span class="qqtxt">建议、疑问解答QQ（123456）</span>
+    </div>
+    <div class="contact">
+        <span class="qqimg"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=123456&amp;site=qq&amp;menu=yes"><img src="images/qq.png" width="35" height="26" /></a></span>
+        <span class="qqtxt">广告合作QQ（123456）</span>
+    </div>
+</div></div>
+                <div class="clear_both"></div>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+        <!-- 页脚 -->
+        <div class="bottom">
+     <div class="bottom1">
+       <div class="copyright">© 2010 - 2015 58云财经-上海撒旦信息科技有限公司 58ycj.com 沪ICP备13089151号</div>
+       <div class="statistical"></div>
+     </div>
+</div>
+        <!-- 返回顶部 -->
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $("a.moquu_wmaps").on('click', function(){
+                popWin.showWin("800", "475", "58云财经", "http://www.58ycj.com");
+            });
+        });
+</script>
+
+<div id="moquu_wxin" class="moquu_wxin"><a href="javascript:void(0)" title="微信公众平台">58云财经<div class="moquu_wxinh"></div></a></div>
+<div id="moquu_wshare" class="moquu_wshare"><a href="javascript:void(0)" title="手机客户端">58云财经<div class="moquu_wshareh"></div></a></div>
+<div id="moquu_wmaps"><a href="javascript:void(0)" class='moquu_wmaps' title="用户反馈">58云财经</a></div>
+<a id="moquu_top" href="javascript:void(0)" title="返回顶部"></a>
+
+
+    </body>
+    <SCRIPT>
+        setInterval("timer.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+    </SCRIPT>
+</html>

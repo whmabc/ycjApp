@@ -1,0 +1,62 @@
+<div class="menu">
+    <ul>
+        <li id="one1" onclick="setTab('one',1)">股指</li>
+        <li id="one2" onclick="setTab('one',2)">贵金属</li>
+        <li id="one3" onclick="setTab('one',3)">商品</li>
+        <li id="one4" onclick="setTab('one',4)">外汇</li>
+    </ul>
+</div>
+<div class="menudiv" ng-controller='hqCtrl'>
+    <!--证券-->
+    <div id="con_one_1">
+        <ul class="stock" data-ng-repeat="zqData in data.zqDatas">
+            <!--名称-->
+            <span class="txtleft">{{zqData.name}}</span>
+            <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色-->
+            <span class="txtcenter" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}" flash>
+                {{zqData.dq_price}}<div ng-show="false">{{zqData.change}}</div>
+            </span>
+            <!--涨跌幅-->
+            <span class="txtright" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}">{{zqData.zdf}}</span>
+        </ul>
+    </div>
+    <!--贵金属-->
+    <div id="con_one_2" style="display:none;">
+        <ul class="stock" data-ng-repeat="gjsData in data.gjsDatas">
+            <!--名称-->
+            <span class="txtleft" >{{gjsData.name}}</span>
+            <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色-->            
+            <span class="txtcenter" ng-class="{'txtred': cton(gjsData.zdf)>0, 'txtgreen': cton(gjsData.zdf)<0}" flash>
+                {{gjsData.dq_price}}<div ng-show="false">{{gjsData.change}}</div>
+            </span>
+            <!--涨跌幅-->
+            <span class="txtright" ng-class="{'txtred': cton(gjsData.zdf)>0, 'txtgreen': cton(gjsData.zdf)<0}">{{gjsData.zdf}}</span>
+        </ul>                
+    </div>
+    <!--期货、商品-->
+    <div id="con_one_3" style="display:none;">
+        <ul class="stock" data-ng-repeat="spData in data.spDatas">
+            <!--名称-->
+            <span class="txtleft">{{spData.name}}</span>
+            <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色--> 
+            <span class="txtcenter" ng-class="{'txtred': cton(spData.zdf)>0, 'txtgreen': cton(spData.zdf)<0}" flash>
+                {{spData.dq_price}}<div ng-show="false">{{spData.change}}</div>
+            </span>
+            <!--涨跌幅-->
+            <span class="txtright" ng-class="{'txtred': cton(spData.zdf)>0, 'txtgreen': cton(spData.zdf)<0}">{{spData.zdf}}</span>
+        </ul>
+    </div>
+    <!--外汇-->
+    <div id="con_one_4" style="display:none;">
+        <ul class="stock" data-ng-repeat="whData in data.whDatas">
+            <!--名称-->
+            <span class="txtleft">{{whData.name}}</span>
+            <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色--> 
+            <span class="txtcenter" ng-class="{'txtred': cton(whData.zdf)>0, 'txtgreen': cton(whData.zdf)<0}" flash>
+                {{whData.dq_price}}<div ng-show="false">{{whData.change}}</div>
+            </span>
+            <!--涨跌幅-->
+            <span class="txtright" ng-class="{'txtred': cton(whData.zdf)>0, 'txtgreen': cton(whData.zdf)<0}">{{whData.zdf}}</span>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="search">
+    <ul>
+        <li class="searchrl">日期</li>
+        <li class="searchdd" >
+            <div class="cjsearch">
+                <input readonly class="laydate-icon" id="calendar" lay-date ng-model="selDate" >
+            </div>
+            <div class="cjdate" >
+                <div class="cjdates"><a href="#" ng-click="preWeek()">&lt;上一周</a></div>
+                <!--周列表开始-->
+                <a href="" ng-click="selectedDay(week.week)" ng-repeat="week in weeks"> 
+                    <div ng-class="{true: 'cjdatels', false: 'cjdateone'}[week.curDay]" >
+                        <span class="cjdatez">{{week.week}}</span>
+                        <span class="cjdater">{{week.day}}</span>
+                    </div>
+                </a>
+                <!--周列表结束-->
+                <div class="cjdates cjdates1"><a href="#" ng-click="nextWeek()">下一周&gt;</a></div>
+            </div>
+        </li>
+    </ul>
+    <ul>
+        <li class="searchtxt">地区</li>
+        <li class="searchdc">
+            <div class="item">
+                <!--地区列表开始-->
+                <div ng-click="clickNation(nation)" ng-repeat="nation in nations">
+                    <div ng-class="{false: 'item1', true: 'item2'}[nation.checked]">
+                        <a href="">{{nation.name}}</a>
+                    </div>
+                </div>
+                <!--地区列表结束-->
+            </div>
+        </li>
+    </ul>
+    <ul>
+        <li class="searchtxt">重要性</li>
+        <li>
+            <div class="item">
+                <!--重要性列表开始-->
+                <div ng-click="clickImportant(important)" ng-repeat="important in importants">
+                    <div ng-class="{false: 'item1', true: 'item2'}[important.checked]">
+                        <a href="">{{important.name}}</a>
+                    </div>
+                </div>
+                <!--重要性列表结束-->
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,5 @@
+<div class="new"  data-ng-repeat="data in moreDatas">
+    <% include news %>
+</div>
+<div class="more" ng-show="getDataCounts(datas)<400"><a href="" ng-click="getMore()">加载更多</a></div>
+<div class="more" ng-show="getDataCounts(datas)>=400"><a href="">无更多数据</a></div>
