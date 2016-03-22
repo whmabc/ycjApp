@@ -24,6 +24,7 @@
         <!--返回顶部JS-->
         <script type="text/javascript" src="/javascripts/js/popwin.js"></script>
         <!--返回顶部JS-->
+        <script type="text/javascript" src="/javascripts/js/jquery.jplayer.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
         <script type="text/javascript" src="/javascripts/angular/ycj_controller.js"></script>
@@ -38,7 +39,7 @@
             <!--导航开始-->
             <div class="nav">
                 <ul>
-                    <li class="cur"><a href="/">实时快</a></li>
+                    <li class="cur"><a href="/">实时快讯</a></li>
                     <li ><a href="/news">新闻资讯</a></li>
                     <li ><a href="/calendar">财经日历</a></li>
                     <li ><a href="/mobile">APP下载</a></li>
@@ -96,16 +97,13 @@
                                         <!--重要级别-->
                                         <td width="56" rowspan="2" align="center" valign="middle"><img src="images/{{data.import_index}}.png" width="20" height="34" title="data.import_index" /></td>
                                         <!--实际指标-->
-                                        <td width="116" rowspan="2" align="left" valign="middle" style="font-size:16px;" >实际：<div ng-bind="data.actual_val"></div></td>
+                                        <td width="116" rowspan="2" align="left" valign="middle" style="font-size:16px;">实际：{{data.actual_val}}</td>
                                         <!--利空利多-->
                                         <td width="92" rowspan="2" align="right" valign="middle"><img src="images/{{data.li_duo}}.png" width="82" height="24" title="data.li_duo" alt="data.li_duo" /></td>
                                     </tr>
                                     <tr>
                                         <!--预期值和前值-->
-                                        <td width="204" align="left" valign="middle" style="font-size:13px;">
-                                            前值：<div ng-bind="data.pre_val"></div> 
-                                            预期：<div  ng-bind="data.expected_val"></div>
-                                        </td>
+                                        <td width="204" align="left" valign="middle" style="font-size:13px;">前值：{{data.pre_val}} 预期：{{data.expected_val}}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -115,7 +113,7 @@
                 <div class="new static-data">
                     <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
                             <tr>
-                                <div hidden class="news-id">20160318162639027438</div>
+                                <div style="display:none" class="news-id">20160318162639027438</div>
                                 <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
                                 <td align="left" valign="middle" width="55">13:04</td>
                                 <td width="608" height="30" align="left" valign="middle">创业板涨逾2%，虚拟现实板块大涨5%，爱施德、水晶光电、长江通信涨停。</td>
@@ -125,7 +123,7 @@
                 <div class="new static-data">
                     <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <div hidden class="news-id">20160318162639027437</div>
+                            <div style="display:none" class="news-id">20160318162639027437</div>
                         <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
                         <td align="left" valign="middle" width="55">13:04</td>
                         <td width="608" height="30" align="left" valign="middle">中国央行今日100亿元7天期逆回购中标利率2.25%，与上次持平</td>
@@ -135,7 +133,7 @@
                 <div class="new static-data">
                     <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <div hidden class="news-id">20160318162639027436</div>
+                            <div style="display:none" class="news-id">20160318162639027436</div>
                         <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
                         <td align="left" valign="middle" width="55">13:04</td>
                         <td width="608" height="30" align="left" valign="middle">【10月我国移动互联网接入流量达4.2亿G 创历史新高】工信部：10月份，我国三家基础电信企业运行平稳，受&ldquo;流量不清零&rdquo;政策影响，收入增速出现回落，移动互联网接入流量达4.2亿G，创历史新高。</td>
@@ -145,7 +143,7 @@
                 <div class="new static-data">
                     <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0" style="color:#FF4D4D;">
                         <tr>
-                            <div hidden class="news-id">20160318162639027435</div>
+                            <div style="display:none" class="news-id">20160318162639027435</div>
                         <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
                         <td align="left" valign="middle" width="55">13:04</td>
                         <td width="608" height="30" align="left" valign="middle"><p>在岸人民币对美元开盘后迅速走高，涨0.11%至6.3786。</p>
@@ -156,7 +154,7 @@
                 <div class="new static-data">
                     <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <div hidden class="news-id">20160318162639027434</div>
+                            <div style="display:none" class="news-id">20160318162639027434</div>
                         <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
                         <td align="left" valign="middle" width="55">13:04</td>
                         <td width="608" height="30" align="left" valign="middle">香港恒生指数开盘上涨1.1%，报22423.88点。</td>
@@ -166,7 +164,7 @@
                     <div class="new static-data">
                     <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <div hidden class="news-id">20160318162639027433</div>
+                            <div style="display:none" class="news-id">20160318162639027433</div>
                         <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
                         <td align="left" valign="middle" width="55">13:04</td>
                         <td width="608" height="30" align="left" valign="middle">【报道】安倍内阁改组18人大名单正式确定。</td>
@@ -176,7 +174,7 @@
                     <div class="new static-data">
                     <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
                             <tr>
-                                <div hidden class="news-id">20160318162639027432</div>
+                                <div style="display:none" class="news-id">20160318162639027432</div>
                                 <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
                                 <td align="left" valign="middle" width="55">13:04</td>
                                 <td width="608" height="30" align="left" valign="middle">安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单正式确定。</td>
@@ -193,9 +191,9 @@
                                 </a>
                             </td>
                             <!--time 财经新闻-->
-                            <td align="left" valign="middle" width="55" ng-if="data.type==0">{{data.news_time|dateTransNoSec:data.news_time}}</td>
+                            <td align="left" valign="middle" width="55" ng-if="data.type==0" ng-bind="data.news_time|dateTransNoSec:data.news_time"></td>
                             <!--time 财经数据-->
-                            <td align="left" valign="middle" width="60" ng-if="data.type==1">{{data.news_time|dateTrans:data.news_time}}</td>
+                            <td align="left" valign="middle" width="60" ng-if="data.type==1" ng-bind="data.news_time|dateTrans:data.news_time"></td>
                             <!--财经新闻content-->
                             <td width="608" height="30" align="left" valign="middle" ng-if="data.type==0" ng-bind-html="data.content|to_trusted"></td>
                             <!--财经数据table-->
@@ -207,9 +205,9 @@
                                             <img src="images/nation/{{data.nation}}.png" width="40" height="40" title="国旗" alt="国旗" />
                                         </td>
                                         <!--公布时间-->
-                                        <td width="74" rowspan="2" align="center" valign="middle" style="font-size:16px;">{{data.gb_time}}</td>
+                                        <td width="74" rowspan="2" align="center" valign="middle" style="font-size:16px;" ng-bind="data.gb_time"></td>
                                         <!--指标内容-->
-                                        <td width="204" height="28" align="left" valign="middle" style="font-size:13px;">{{data.content}}</td>
+                                        <td width="204" height="28" align="left" valign="middle" style="font-size:13px;" ng-bind="data.content"></td>
                                         <!--重要级别-->
                                         <td width="56" rowspan="2" align="center" valign="middle"><img src="images/{{data.import_index}}.png" width="20" height="34" title="data.import_index" /></td>
                                         <!--实际指标-->
@@ -249,13 +247,13 @@
     <div id="con_one_1">
         <ul class="stock" data-ng-repeat="zqData in data.zqDatas">
             <!--名称-->
-            <span class="txtleft">{{zqData.name}}</span>
+            <span class="txtleft" ng-bind="zqData.name"></span>
             <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色-->
-            <span class="txtcenter" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}" flash>
-                {{zqData.dq_price}}<div ng-show="false">{{zqData.change}}</div>
+            <span class="txtcenter" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}" flash >
+                {{zqData.dq_price}}<div style="display:none">{{zqData.change}}</div>
             </span>
             <!--涨跌幅-->
-            <span class="txtright" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}">{{zqData.zdf}}</span>
+            <span class="txtright" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}" ng-bind="zqData.zdf"></span>
         </ul>
     </div>
     <!--贵金属-->

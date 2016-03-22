@@ -13,8 +13,8 @@ router.get('/', function(req, res, next) {
             title : settings.SITETITLE ,
             icp : settings.SITEICP
        };
-   //res.render('index.ejs', obj);
-   res.sendfile('./views/index.html');
+   res.render('index.ejs', obj);
+   //res.sendfile('./views/index.html');
 });
 
 /* GET news list page. */
@@ -32,7 +32,8 @@ router.get('/calendar', function(req, res, next) {
             title : settings.SITETITLE ,
             icp : settings.SITEICP
        };
-   res.render('calendar', obj);
+   //res.render('calendar', obj);
+   res.sendfile('./views/calendar.html');
 });
 
 /* GET mobile page. */
@@ -83,34 +84,14 @@ router.get('/getCurrentHq', function (req, res, next) {
 });
 
 /**
- * 获取财经日历(财经数据)
+ * 获取财经日历(财经数据，财经大事，财经假期，财经国债)
  */
 router.post('/getCalendarData', function (req, res, next) { 
     DbOpt.getCalendarData(req, res);
-});
-
-/**
- * 获取财经日历(财经大事)
- */
-router.post('/getCalendarEvent', function (req, res, next) { 
-    //待开发
-    res.json({calendar_events: []});
-});
-
-/**
- * 获取财经日历(假期)
- */
-router.post('/getCalendarHoliday', function (req, res, next) { 
-    //待开发
-    res.json({calendar_holidays: []});
-});
-
-/**
- * 获取财经日历(国债)
- */
-router.post('/getCalendarDebt', function (req, res, next) { 
-    //待开发
-    res.json({calendar_debts: []});
+    // res.json({calendar_datas: calendar_Datas}, 
+    //          {calendar_events: memCache.calendar_Events}, 
+    //          {calendar_holidays: calendar_Holidays}, 
+    //          {calendar_debts: calendar_debts});
 });
 
 module.exports = router;

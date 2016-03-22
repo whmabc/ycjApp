@@ -27,16 +27,13 @@
                     <!--重要级别-->
                     <td width="56" rowspan="2" align="center" valign="middle"><img src="images/{{data.import_index}}.png" width="20" height="34" title="data.import_index" /></td>
                     <!--实际指标-->
-                    <td width="116" rowspan="2" align="left" valign="middle" style="font-size:16px;" >实际：<div ng-bind="data.actual_val"></div></td>
+                    <td width="116" rowspan="2" align="left" valign="middle" style="font-size:16px;">实际：{{data.actual_val}}</td>
                     <!--利空利多-->
                     <td width="92" rowspan="2" align="right" valign="middle"><img src="images/{{data.li_duo}}.png" width="82" height="24" title="data.li_duo" alt="data.li_duo" /></td>
                 </tr>
                 <tr>
                     <!--预期值和前值-->
-                    <td width="204" align="left" valign="middle" style="font-size:13px;">
-                        前值：<div ng-bind="data.pre_val"></div> 
-                        预期：<div  ng-bind="data.expected_val"></div>
-                    </td>
+                    <td width="204" align="left" valign="middle" style="font-size:13px;">前值：{{data.pre_val}} 预期：{{data.expected_val}}</td>
                 </tr>
             </table>
         </td>

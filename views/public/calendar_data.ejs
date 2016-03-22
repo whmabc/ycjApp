@@ -12,17 +12,20 @@
             <td width="18%" align="center" valign="middle" bgcolor="#E6E6E6">多空判断</td>
         </tr>
         <tr align="center" valign="middle" ng-repeat="calendar_data in calendar_datas">
-            <td height="40" bgcolor="#FFFFFF">{{calendar_data.time}}</td>
+            <td height="40" bgcolor="#FFFFFF" ng-bind="calendar_data.time"></td>
             <td bgcolor="#FFFFFF"><img src="/images/nation/{{calendar_data.nation}}.png" width="24" height="24" /></td>
-            <td height="40" align="left" bgcolor="#FFFFFF" ng-class="{'txtred': calendar_data.import_index>=3}">{{calendar_data.name}}</td>
+            <td height="40" align="left" bgcolor="#FFFFFF" ng-class="{'txtred': calendar_data.import_index>=3}" ng-bind="calendar_data.name"></td>
             <td bgcolor="#FFFFFF"><img src="/images/{{calendar_data.import_index}}{{calendar_data.import_index}}.jpg" width="79" height="19" /></td>
-            <td bgcolor="#FFFFFF">{{calendar_data.pre_value}}</td>
-            <td bgcolor="#FFFFFF">{{calendar_data.yq_value}}</td>
-            <td bgcolor="#FFFFFF">{{calendar_data.sj_value}}</td>
+            <td bgcolor="#FFFFFF" ng-bind="calendar_data.pre_value"></td>
+            <td bgcolor="#FFFFFF" ng-bind="calendar_data.yq_value"></td>
+            <td bgcolor="#FFFFFF" ng-bind="calendar_data.sj_value"></td>
             <td bgcolor="#FFFFFF">
                 <font class="red">利多美元</font> 
                 <font class="green">利空金银</font> 
                 <font class="yellow">石油</font></td>
+        </tr>
+        <tr align="center" valign="middle" ng-show="noDatas">
+            <td height="40" colspan="5" align="center" bgcolor="#FFFFFF">今日无财经预告公布！</td>
         </tr>
     </table>
 </div>

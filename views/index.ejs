@@ -23,6 +23,7 @@
         <!--返回顶部JS-->
         <script type="text/javascript" src="/javascripts/js/popwin.js"></script>
         <!--返回顶部JS-->
+        <script type="text/javascript" src="/javascripts/js/jquery.jplayer.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
         <script type="text/javascript" src="/javascripts/angular/ycj_controller.js"></script>
@@ -31,17 +32,17 @@
         <!-- 页头 -->
         <% include public/header %>
         <script> $(".nav li:contains('实时快讯')").addClass("cur");</script>
-        
+        <div style="display:none" id="sound-box" ></div>
         <!-- 页面内容 -->
         <div class="middle">
             <!-- 上部内容(声音，日期)-->
             <div class="middletop">
                 <!-- 声音开关-->
-                <div class="radio">
+                <div class="radio" >
                     <span style="padding-right:2px;">声音提示：</span>
                     <span>
                         <input type="checkbox" name="genre" id="action" value="action" checked="checked"/>
-                        <label for="action"></label>
+                        <label for="action" id="soundTips"></label>
                     </span>
                 </div>
                 <!-- 显示日期-->
@@ -55,7 +56,7 @@
                 <div class="new static-data" hidden>
                     <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <div hidden class="news-id">20160318162639027432</div>
+                            <div style="display:none" class="news-id">20160318162639027432</div>
                             <td align="left" valign="middle" width="37"><img src="images/nomarlnews.png" width="20" height="20" title="一般新闻" alt="一般新闻" border="0" /></td>
                             <td align="left" valign="middle" width="55">13:04</td>
                             <td width="608" height="30" align="left" valign="middle">安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单安倍内阁改组18人大名单正式确定。</td>

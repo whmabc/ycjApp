@@ -76,6 +76,7 @@ ycj_app.controller('newsCtrl', ['$scope', '$http','socket', function ($scope, $h
     var curPageNewsCount = angular.element('.news-id').length;
     //第一次加载页面的时候，最旧的快讯ID为静态页面最后一条快讯的ID
     var oldestNewsId = angular.element('.news-id').last().html();
+    console.log('curPageNewsCount='+curPageNewsCount);
     
     //浏览器快讯页面最大展现新闻数量
     var MAX_MESSAGE_COUNT = 400;
@@ -91,7 +92,6 @@ ycj_app.controller('newsCtrl', ['$scope', '$http','socket', function ($scope, $h
     
     //用户点击加载更多按钮后的查询数据库操作
     $scope.getMore = function () { 
-        playSound();
         if(curPageNewsCount < MAX_MESSAGE_COUNT){
             $http.get(DOMAIN+'/getHistoryNews?start='+oldestNewsId+'&limit='+MESSAGE_PAGE_COUNT)
                 .success(function (result) { 
@@ -108,34 +108,9 @@ ycj_app.controller('newsCtrl', ['$scope', '$http','socket', function ($scope, $h
     $scope.getDataCounts = function () { 
         return curPageNewsCount;
     }
-    function playSound() { 
-        //如果是Chrome： 
-        if(navigator.userAgent.indexOf("Chrome") > -1){ 
-            angular.element('#sound-box').append('<audio src="/sound/2.mp3" autoplay></audio>');
-            setTimeout(function() { angular.element('#sound-box audio').remove(); }, 500 ); 
-        }
-        //如果是Firefox： 
-        else if(navigator.userAgent.indexOf("Firefox") != -1){ 
-            angular.element('#sound-box').append('<embed src="/sound/2.mp3" type="audio/mp3" loop="false" mastersound></embed>');
-            setTimeout(function() { angular.element('#sound-box embed').remove(); }, 500 );
-        }
-        //如果是IE(6,7,8): 
-        else if(navigator.appName.indexOf("Microsoft Internet Explorer")!=-1 && document.all){ 
-            //var tmp = '<object classid="clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95"><param name="AutoStart" value="1" /><param name="Src" value="/sound/2.mp3" /></object>';
-            angular.element('#sound-box').append('<bgsound src="/sound/2.mp3" autostart=true>');
-            setTimeout(function() { angular.element('#sound-box bgsound').remove(); }, 500 );
-        }
-        else{ 
-            angular.element('#sound-box').append('<embed src="/sound/2.mp3" type="audio/mp3" loop="false" mastersound></embed>');
-            setTimeout(function() { angular.element('#sound-box embed').remove(); }, 500 );
-        } 
-    }
+    
     //监听后台发来的快讯数据
     socket.on('NewMessage', function (message) {
-        //找到声音开关值
-        if(angular.element('#soundTips').hasClass('checked')){
-            playSound();
-        }
         curPageNewsCount++;
         //如果超过最大限度，则先删除最后一个数据
         if(curPageNewsCount >= MAX_MESSAGE_COUNT) {
@@ -262,18 +237,25 @@ ycj_app.directive('flash', function () {
         link : function ($scope, $element, $attrs, $ctrl) { 
             //监听所有行情数据是否发生变化
             $scope.$watch('$scope.data', function (newValue, oldValue) { 
-                var change = $element.children().text();
-                if(change == 0) return;
+                //监控隐藏元素change，判断涨跌，然后显示相应背景色
+                if(!$element[0].firstElementChild) return;
+                var change = $element[0].firstElementChild.innerHTML;
+                
                 if(change > 0){
                     $element.addClass('bred');//上涨了，背景色为红色
-                    //设置定时器，500毫秒后去掉背景色和字体色
-                    setTimeout(function() { $element.removeClass('bred'); }, 500 );
                 }
                 else{
                     $element.addClass('bgreen');//下跌了，背景色为绿色
-                    //设置定时器，500毫秒后去掉背景色和字体色
-                    setTimeout(function() { $element.removeClass('bgreen'); }, 500 );
                 }
+                //设置定时器，500毫秒后去掉背景色和字体色
+                setTimeout(function() {
+                    if(change > 0){
+                        $element.removeClass('bred');
+                    }
+                    else{
+                        $element.removeClass('bgreen');
+                    }
+                }, 500);
             }, true);
         }
     };
@@ -321,13 +303,6 @@ ycj_app.directive('layDate', function() {
  * 财经日历控制器
  */ 
 ycj_app.controller('calendarCtrl', ['$scope', '$http', 'socket', function ($scope, $http, socket) { 
-   $scope.noDatas = true;
-   $scope.noEvents = true;
-   $scope.noHolidays = true;
-   $scope.noDebts = true;
-   if(angular.element('.static-data').length > 0){
-       $scope.noDatas = false;
-   }
    //周对象列表
    $scope.weeks = [];
    //国家对象列表
@@ -369,42 +344,18 @@ ycj_app.controller('calendarCtrl', ['$scope', '$http', 'socket', function ($scop
    //监控用户选择的日期是否发生变化，如果有变化，则按照新条件去后台查询
    $scope.$watch('selDate', function (newValue, oldValue) { 
        $scope.weeks = updateWeeks(newValue);
-       if(newValue == oldValue) return ;
-       if(angular.element('.static-data').length > 0){
-           angular.element('.static-data').remove();
-       }
-       
        selectCalendarData();
    });
    //监控用户选择的地区是否发生变化，如果有变化，则按照新条件去后台查询
    $scope.$watch('nations', function (newValue, oldValue) { 
-       if(equalArray(newValue, oldValue)) return;
-       //先删除静态财经数据
-       if(angular.element('.static-data').length > 0){
-            angular.element('.static-data').remove();
-       }
-       //然后查询符合条件的数据
        selectCalendarData();
    }, true);
    //监控用户选择的重要性是否发生变化，如果有变化，则按照新条件去后台查询
    $scope.$watch('importants', function (newValue, oldValue) { 
-       if(equalArray(newValue, oldValue)) return;
-       //先删除静态财经数据
-       if(angular.element('.static-data').length > 0){
-           angular.element('.static-data').remove();
-       }
-       //然后查询符合条件的数据
        selectCalendarData();
    }, true);
    //监听后台发来的财经日历数据
    socket.on('NewCalendarData', function (newMessages) {
-       //先删除静态财经数据
-       if(angular.element('.static-data').length > 0){
-           angular.element('.static-data').remove();
-           //然后查询符合条件的数据
-           selectCalendarData();
-       }
-       //更新新来的数据
        for(var i=0; i<newMessages.length; i++){
            for(var j=0; j<$scope.calendar_datas[j]; j++)
            {
@@ -486,16 +437,6 @@ ycj_app.controller('calendarCtrl', ['$scope', '$http', 'socket', function ($scop
            $scope.importants[0].checked = true;
        }
    }
-   //内部方法，判断两个数组是否相等
-   function equalArray(newValue, oldValue){
-       var retValue = true;
-       for(var i=0; i<newValue.length; i++){
-           if((newValue[i].name != oldValue[i].name)||(newValue[i].checked != oldValue[i].checked)){
-               retValue = false;
-           }
-       }
-       return retValue;
-   }
    //内部方法，更新周期列表
    function updateWeeks(newDate){
        var retWeeks = [];
@@ -548,44 +489,37 @@ ycj_app.controller('calendarCtrl', ['$scope', '$http', 'socket', function ($scop
        oldDate.setDate(oldDate.getDate() + 7 - oldDate.getDay());
        $scope.selDate = oldDate.format();
    }
-   //向后台数据库查询数据 
+   //向后台查询数据 
    function selectCalendarData(){
        var selCondition = {selDate: $scope.selDate, nations: $scope.nations, importants:$scope.importants};
        $http.post(DOMAIN+'/getCalendarData', selCondition)
-            .success(function (result) {
-                console.log('get calendar data success:'+ result.calendar_datas.length); 
+            .success(function (result) { 
                 $scope.calendar_datas = result.calendar_datas;
-                if($scope.calendar_datas.length > 0){
-                    $scope.noDatas = false;
-                }
-                else{
-                    $scope.noDatas = true;
-                }
             })
             .error(function (err) { 
                 console.log(err);
             });//end http.post
-        // $http.post(DOMAIN+'/getCalendarEvent', selCondition)
-        //     .success(function (result) { 
-        //         $scope.calendar_events = result.calendar_events;
-        //     })
-        //     .error(function (err) { 
-        //         console.log(err);
-        //     });//end http.post
-        // $http.post(DOMAIN+'/getCalendarHoliday', selCondition)
-        //     .success(function (result) { 
-        //         $scope.calendar_holidays = result.calendar_holidays;
-        //     })
-        //     .error(function (err) { 
-        //         console.log(err);
-        //     });//end http.post
-        // $http.post(DOMAIN+'/getCalendarDebt', selCondition)
-        //     .success(function (result) { 
-        //         $scope.calendar_debts = result.calendar_debts;
-        //     })
-        //     .error(function (err) { 
-        //         console.log(err);
-        //     });//end http.post
+        $http.post(DOMAIN+'/getCalendarEvent', selCondition)
+            .success(function (result) { 
+                $scope.calendar_events = result.calendar_events;
+            })
+            .error(function (err) { 
+                console.log(err);
+            });//end http.post
+        $http.post(DOMAIN+'/getCalendarHoliday', selCondition)
+            .success(function (result) { 
+                $scope.calendar_holidays = result.calendar_holidays;
+            })
+            .error(function (err) { 
+                console.log(err);
+            });//end http.post
+        $http.post(DOMAIN+'/getCalendarDebt', selCondition)
+            .success(function (result) { 
+                $scope.calendar_debts = result.calendar_debts;
+            })
+            .error(function (err) { 
+                console.log(err);
+            });//end http.post
    }//end selectCalendarData()
 }]);
 

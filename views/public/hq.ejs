@@ -11,13 +11,13 @@
     <div id="con_one_1">
         <ul class="stock" data-ng-repeat="zqData in data.zqDatas">
             <!--名称-->
-            <span class="txtleft">{{zqData.name}}</span>
+            <span class="txtleft" ng-bind="zqData.name"></span>
             <!--当前值，后面增加一个隐藏字段zdf，用于js判断显示背景色-->
-            <span class="txtcenter" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}" flash>
-                {{zqData.dq_price}}<div ng-show="false">{{zqData.change}}</div>
+            <span class="txtcenter" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}" flash >
+                {{zqData.dq_price}}<div style="display:none" >{{zqData.change}}</div>
             </span>
             <!--涨跌幅-->
-            <span class="txtright" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}">{{zqData.zdf}}</span>
+            <span class="txtright" ng-class="{'txtred': cton(zqData.zdf)>0, 'txtgreen': cton(zqData.zdf)<0}" ng-bind="zqData.zdf"></span>
         </ul>
     </div>
     <!--贵金属-->

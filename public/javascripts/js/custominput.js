@@ -11,19 +11,19 @@ jQuery.fn.customInput = function(){
 		if($(this).is('[type=checkbox],[type=radio]')){
 			var input = $(this);
 			
-			// 使用输入的ID得到相关的标签
+			// 使锟斤拷锟斤拷锟斤拷锟斤拷ID锟矫碉拷锟斤拷锟截的憋拷签
 			var label = $('label[for='+input.attr('id')+']');
 			
-			// 包裹在一个div输入+标签
+			// 锟斤拷锟斤拷锟斤拷一锟斤拷div锟斤拷锟斤拷+锟斤拷签
 			input.add(label).wrapAll('<div class="custom-'+ input.attr('type') +'"></div>');
 			
-			// 必要的浏览器不支持：hover伪类的标签
+			// 锟斤拷要锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷支锟街ｏ拷hover伪锟斤拷锟侥憋拷签
 			label.hover(
 				function(){ $(this).addClass('hover'); },
 				function(){ $(this).removeClass('hover'); }
 			);
 			
-			//绑定自定义事件，触发它，绑定点击，焦点，模糊事件				
+			//锟斤拷锟斤拷锟皆讹拷锟斤拷锟铰硷拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟襟定碉拷锟斤拷锟斤拷锟斤拷锟姐，模锟斤拷锟铰硷拷				
 			input.bind('updateState', function(){	
 				input.is(':checked') ? label.addClass('checked') : label.removeClass('checked checkedHover checkedFocus'); 
 			})
