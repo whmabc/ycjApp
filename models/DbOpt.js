@@ -2,6 +2,7 @@ var settings = require('../models/settings.js');
 var url = require('url');
 var mysql = require('mysql');
 var util = require('../util/util.js');
+var memCache = require('../models/MemCache.js');
 
 var DbOpt = {
     //创建数据库连接
@@ -16,7 +17,7 @@ var DbOpt = {
         return conn;
      },
     //启动时，获取最新简讯列表，放入内存数据库中
-    getMinNews : function (limit, fn) { 
+    initMemNews : function (limit, fn) { 
         //创建数据库连接对象
         var conn = mysql.createConnection({
             host: settings.DBHOST,
@@ -33,7 +34,7 @@ var DbOpt = {
                 console.log(err);
                 return;
             }
-            var sql = "select * from kx_news where type=0 order by id limit " + limit ;
+            var sql = "select * from kx_news order by id desc limit " + limit ;
            
             //执行查询操作
             conn.query(sql, function (err, results) { 
@@ -259,6 +260,25 @@ var DbOpt = {
              });
          });
      },//end getCalendarData
+    //获取内存最新快讯列表
+    getMemNews: function (req, res) {
+        //获得客户端当前最新Id
+        var params = url.parse(req.url, true);
+        var newestNewsId = params.query.start;
+        var retValue = [];
+        if(memCache.news_Datas.length > 0){
+            for(var i=0; i<memCache.news_Datas.length; i++){
+                //如果内存快讯列表比客户端快讯Id大，则需要更新
+                if(memCache.news_Datas[i].id > newestNewsId){
+                    retValue.push(memCache.news_Datas[i]);
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        return res.json({datas: retValue});
+     },//end getMemNews
  };
 
 module.exports = DbOpt;

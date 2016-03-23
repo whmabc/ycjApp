@@ -74,6 +74,8 @@ ycj_app.controller('newsCtrl', ['$scope', '$http','socket', function ($scope, $h
     //当前页面的总快讯条数
     
     var curPageNewsCount = angular.element('.news-id').length;
+    //第一次加载页面的时候，最新的快讯ID为静态页面底一条快讯的ID
+    var newestNewsId = angular.element('.news-id').first().html() || 0;
     //第一次加载页面的时候，最旧的快讯ID为静态页面最后一条快讯的ID
     var oldestNewsId = angular.element('.news-id').last().html();
     
@@ -88,7 +90,32 @@ ycj_app.controller('newsCtrl', ['$scope', '$http','socket', function ($scope, $h
     //         console.log('getData success');
     //         $scope.datas = result.datas;
     //     });
-    
+    //监控连接或重新连接成功后，查询服务器数据
+    socket.on('connect',function(){
+        console.log('socketio status: Contented');
+        $http.get(DOMAIN+'/getMemNews?start='+newestNewsId)
+                .success(function (result) { 
+                    console.log('getMemData success: '+ result.datas.length);
+                    if(result.datas.length > 0)
+                    {
+                        //将客户端快讯列表前面增加上新查询来的快讯列表
+                        $scope.datas = result.datas.concat($scope.datas);
+                        //更新最新新闻ID
+                        newestNewsId = $scope.datas[0].id;
+                        //更新当前页面新闻总数
+                        curPageNewsCount += result.datas.length;
+                    }
+                });
+    });
+    // socket.on('disconnect',function(){
+    //     console.log('socketio status: Disconnected');
+    // });
+    // socket.on('reconnect',function(){
+    //     console.log('socketio status: Reconnected');
+    // });
+    // socket.on('reconnecting',function(){
+    //     console.log('socketio status: Reconnecting');
+    // });
     //用户点击加载更多按钮后的查询数据库操作
     $scope.getMore = function () { 
         playSound();

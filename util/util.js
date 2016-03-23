@@ -70,6 +70,20 @@ exports.genNationCondition = function (nations) {
 }
 
 /**
+ * 将快讯列表转换成min快讯列表
+ */
+exports.newsToMinNews = function (news) {
+    //如果是获取全部指标，则直接让该条件为空
+    var minNews = [];
+    for(var i=0; i<news.length; i++){
+        if(news[i].type == 0){
+            minNews.push(news[i]);
+        }
+    }
+    return minNews;
+}
+
+/**
  * 生成where条件，为财经日历服务,根据用户选择重要性状态列表，返回想要的查询条件
  */
 exports.genImportantCondition = function (importants) {
@@ -84,7 +98,7 @@ exports.genImportantCondition = function (importants) {
     {
         where += " < ";
     }
-    where += settings.IMPORT_THREADHOLD + " "
+    where += settings.IMPORT_THREADHOLD + " ";
     return where;
 }
 

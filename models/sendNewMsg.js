@@ -10,9 +10,10 @@ var memCache = require('../models/MemCache.js');
  */
 exports.sendNewMsg = function (server) {
    var socketIO = io.listen(server); 
-   //先初始化min快讯内存数据库
-   DbOpt.getMinNews(settings.MAX_MINI_NEWS_COUNT, function (minNews) {  
-        memCache.min_News_Datas = minNews;
+   //先初始化快讯内存数据库
+   DbOpt.initMemNews(settings.MAX_SELECT_COUNT, function (initNews) {  
+        memCache.news_Datas = initNews;
+        memCache.min_News_Datas = util.newsToMinNews(initNews);
         //获取快讯当前最大值，然后启动定时器函数，轮询数据库，如果有新快讯数据，发送给所有已经连接的客户端，每次发送一条数据
         DbOpt.getMaxId('id', 'kx_news', function (init_maxId) {
             //保存当前新闻的最大值
@@ -34,9 +35,13 @@ exports.sendNewMsg = function (server) {
                                 for(var i=newMsg.length-1; i>=0; i--)
                                 {
                                     socketIO.emit('NewMessage', newMsg[i]);
-                                    //更新内存数据库miniNews列表
-                                    memCache.min_News_Datas.pop();
-                                    memCache.min_News_Datas.unshift(newMsg[i]);
+                                    //更新内存数据库快讯和mini快讯列表
+                                    memCache.news_Datas.pop();
+                                    memCache.news_Datas.unshift(newMsg[i]);
+                                    if(newMsg[i].type == 0){
+                                        memCache.min_News_Datas.pop();
+                                        memCache.min_News_Datas.unshift(newMsg[i]);
+                                    }
                                 }
                             }//end if (newMsg.length > 0)
                         });

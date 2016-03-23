@@ -64,6 +64,15 @@ router.get('/getHistoryNews', function (req, res, next) {
 });
 
 /**
+ * 客户端socketio连接或重新连接成功后，需要请求一次快讯路由
+ */
+router.get('/getMemNews', function (req, res, next) { 
+    //解决跨域访问设置
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    DbOpt.getMemNews(req, res);
+});
+
+/**
  * 首次获取mini快讯
  */
 router.get('/getMinNews', function (req, res, next) { 
